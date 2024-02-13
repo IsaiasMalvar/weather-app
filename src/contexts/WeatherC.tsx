@@ -2,12 +2,18 @@ import { createContext } from "react";
 import { WeatherData, WeatherDetail } from "../types";
 
 interface WeaterContextProps {
+  city: string;
+  error: string;
+  suggestions: string[];
+  place: string;
+  showSuggestions: boolean;
   isLoading: boolean;
-  changeX: () => void;
-  changeT: () => void;
+  handleInputChange: (value: string) => void;
+  handleSuggestionClick: (value: string) => void;
+  handleSubmitSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleCurrentLocation: () => void;
   weatherData?: WeatherData | undefined;
   weatherDetail?: WeatherDetail;
-  wordT: string;
 }
 
 export const WeatherContext = createContext<WeaterContextProps>(

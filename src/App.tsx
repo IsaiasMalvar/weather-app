@@ -8,41 +8,10 @@ function App() {
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
   const apiUrl = import.meta.env.VITE_API_ID;
-  const { wordT, changeT, weatherData, isLoading } = useContext(WeatherContext);
+  const { handleInputChange } = useContext(WeatherContext);
   console.log(apiUrl);
 
-  /*   const getUp = useCallback(async (): Promise<WeatherData> => {
-    try {
-      const { data } = await axios.get<WeatherData>(
-        `https://api.openweathermap.org/data/2.5/forecast?q=paris&appid=${apiUrl}&cnt=40`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getUp();
-        console.log(data);
-      } catch (error) {
-        // Handle errors if necessary
-      }
-    })();
-  }, [getUp]); */
-
-  return isLoading ? (
-    <div className="text-[2000px]">LOADING</div>
-  ) : (
-    <>
-      {wordT}
-      <div onClick={changeT}>X</div>
-      <div>{weatherData?.cod}</div>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
