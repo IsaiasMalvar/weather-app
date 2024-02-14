@@ -15,8 +15,6 @@ export const WeatherProvider = ({ children }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const apiUrl = import.meta.env.VITE_API_ID;
 
-  let a;
-
   const handleInputChange = async (value: string) => {
     setCity(value);
     if (value.length >= 3) {
