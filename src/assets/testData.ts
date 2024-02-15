@@ -1,6 +1,6 @@
 import { WeatherData } from "../types";
 
-const weatherData: WeatherData = {
+export const weatherData: WeatherData = {
   cod: "200",
   message: 0,
   cnt: 40,
@@ -1494,4 +1494,4 @@ const weatherData: WeatherData = {
   },
 };
 
-const firstHit = weatherData.list[0];
+export const firstHit = weatherData.list[0];
