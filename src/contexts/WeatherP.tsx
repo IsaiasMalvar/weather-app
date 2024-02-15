@@ -10,12 +10,9 @@ export const WeatherProvider = ({ children }: any) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [place, setPlace] = useState<string>("Tenerife");
 
-  const [wordT, setWordT] = useState<string>("null");
   const [weatherData, setWeatherData] = useState<WeatherData>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const apiUrl = import.meta.env.VITE_API_ID;
-
-  let a;
 
   const handleInputChange = async (value: string) => {
     setCity(value);
@@ -45,17 +42,17 @@ export const WeatherProvider = ({ children }: any) => {
   };
 
   const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    setIsLoading(true);
     e.preventDefault();
     if (suggestions.length == 0) {
       setError("Location not found");
       setIsLoading(false);
     } else {
+      setIsLoading(true);
       setError("");
       setTimeout(() => {
-        setIsLoading(false);
         setPlace(city);
         setShowSuggestions(false);
+        setIsLoading(false);
       }, 500);
     }
   };
@@ -80,19 +77,11 @@ export const WeatherProvider = ({ children }: any) => {
     }
   };
 
-  const changeW = useCallback(() => {
-    setWordT("");
-  }, []);
-
-  const changeT = () => {
-    setWordT("");
-  };
-
-  const changeX = useCallback(async () => {
+  /*   const obtainWeatherData = useCallback(async () => {
     try {
       setIsLoading(true);
       const { data } = await axios.get<WeatherData>(
-        `https://api.openweathermap.org/data/2.5/forecast?q=paris&appid=${apiUrl}&cnt=40`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiUrl}&cnt=40`
       );
       setWeatherData(data);
       setTimeout(() => setIsLoading(false), 5000);
@@ -100,12 +89,15 @@ export const WeatherProvider = ({ children }: any) => {
       console.error(error);
       throw error;
     }
-  }, []);
+  }, [place]);
+
+  const clearError = () => {
+    setError("");
+  };
 
   useEffect(() => {
-    changeW();
-    changeX();
-  }, [changeW, changeX]);
+    obtainWeatherData();
+  }, [obtainWeatherData]); */
 
   console.log(weatherData);
 
@@ -123,6 +115,7 @@ export const WeatherProvider = ({ children }: any) => {
         suggestions,
         showSuggestions,
         place,
+        // clearError,
       }}
     >
       {children}
