@@ -3,6 +3,7 @@ import axios from "axios";
 import { WeatherData } from "./types";
 import { WeatherContext } from "./contexts/WeatherC";
 import NavBar from "./components/NavBar";
+import CurrentTimeWeather from "./components/CurrentTimeWeather";
 
 function App() {
   const apiUrl = import.meta.env.VITE_API_ID;
@@ -17,7 +18,7 @@ function App() {
           onClick={clearError}
         >
           <NavBar />
-          <a onClick={() => console.log("hi")}>X</a>
+          <CurrentTimeWeather />
         </div>
       ) : (
         <div>LOADING</div>
