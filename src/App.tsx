@@ -5,18 +5,23 @@ import { WeatherContext } from "./contexts/WeatherC";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [data, setData] = useState(null);
-  const [loader, setLoader] = useState(false);
   const apiUrl = import.meta.env.VITE_API_ID;
-  const { handleInputChange } = useContext(WeatherContext);
-  console.log(apiUrl);
+  const { clearError, isLoading } = useContext(WeatherContext);
+  console.log(isLoading);
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-[#00ffbc]  to-[#e98c11]">
-        <NavBar />
-      </div>
+      {!isLoading ? (
+        <div
+          className="min-h-screen bg-gradient-to-br from-[#00ffbc]  to-[#e98c11]"
+          onClick={clearError}
+        >
+          <NavBar />
+          <a onClick={() => console.log("hi")}>X</a>
+        </div>
+      ) : (
+        <div>LOADING</div>
+      )}
     </>
   );
 }

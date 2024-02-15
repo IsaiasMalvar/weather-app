@@ -12,6 +12,7 @@ interface WeaterContextProps {
   handleSuggestionClick: (value: string) => void;
   handleSubmitSearch: (e: React.FormEvent<HTMLFormElement>) => void;
   handleCurrentLocation: () => void;
+  clearError?: () => void;
   weatherData?: WeatherData | undefined;
   weatherDetail?: WeatherDetail;
 }

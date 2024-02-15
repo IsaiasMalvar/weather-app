@@ -1,12 +1,13 @@
 import { FaSearchengin } from "react-icons/fa";
 import { useContext } from "react";
 import { WeatherContext } from "../contexts/WeatherC";
+import SuggestionList from "./SuggestionList";
 
 const SearchBox = (): React.ReactElement => {
   const { handleSubmitSearch, handleInputChange, city } =
     useContext(WeatherContext);
   return (
-    <form onSubmit={handleSubmitSearch} className="flex">
+    <form onSubmit={handleSubmitSearch} className="flex relative">
       <input
         value={city}
         type="text"
@@ -17,6 +18,7 @@ const SearchBox = (): React.ReactElement => {
       <button className="p-2 text-white bg-green-300 rounded-r-md focus:outline-none hover:bg-green-400 h-full">
         <FaSearchengin />
       </button>
+      <SuggestionList />
     </form>
   );
 };
