@@ -1495,3 +1495,5 @@ export const weatherData: WeatherData = {
 };
 
 export const firstHit = weatherData.list[0];
+
+export const completeDayCycle = weatherData.list.slice(0, 8);
