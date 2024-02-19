@@ -13,9 +13,9 @@ const SearchBox = (): React.ReactElement => {
         type="text"
         placeholder="Where to?"
         onChange={(e) => handleInputChange(e.target.value)}
-        className="p-3 w-[200px] border border-gray-50 rounded-l-md focus:outline-none focus:border-green-300 text-2xl font-mono"
+        className="p-3 w-[200px] border border-gray-50 rounded-l-md focus:outline-none focus:border-green-300 text-2xl font-mono text-blue-500"
       />
-      <button className="p-2 text-white bg-green-300 rounded-r-md focus:outline-none hover:bg-green-400 h-full">
+      <button className="p-2 text-white bg-blue-400 rounded-r-md focus:outline-none hover:bg-blue-500 h-full">
         <FaSearchengin />
       </button>
       <SuggestionList />

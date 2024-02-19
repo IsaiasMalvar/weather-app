@@ -1,6 +1,4 @@
-import { useEffect, useState, useCallback, useContext } from "react";
-import axios from "axios";
-import { WeatherData } from "./types";
+import { useContext } from "react";
 import { WeatherContext } from "./contexts/WeatherC";
 import NavBar from "./components/NavBar";
 import CurrentTimeWeather from "./components/CurrentTimeWeather";
@@ -15,7 +13,7 @@ function App() {
     <>
       {!isLoading ? (
         <div
-          className="min-h-screen bg-gradient-to-br from-[#00ffbc]  to-[#e98c11] p-10"
+          className="min-h-screen bg-gradient-to-br from-[#4676d5]  to-[#19e1ec] p-10 relative"
           onClick={clearError}
         >
           <NavBar />
