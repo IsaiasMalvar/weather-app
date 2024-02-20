@@ -1,18 +1,21 @@
 import { format, parseISO } from "date-fns";
-import { firstHit } from "../assets/testData";
-import { WeatherData, WeatherDetail } from "../types";
+import { WeatherData, WeatherSingleDetail } from "../types";
 import { convertKelvinToCelsius } from "../utils/convertKelvinToCelsius";
 import shiftIcon from "../utils/shiftIcon";
-import { useContext } from "react";
-import { WeatherContext } from "../contexts/WeatherC";
 
-const CurrentTimeWeather = (): React.ReactElement => {
-  const { place } = useContext(WeatherContext);
-  const testData: WeatherDetail = firstHit;
+interface CurrentTimeWeatherProps {
+  place: string;
+  firstHit: WeatherSingleDetail;
+}
+
+const CurrentTimeWeather = ({
+  firstHit,
+  place,
+}: CurrentTimeWeatherProps): React.ReactElement => {
   return (
     <>
       <div className="m-auto text-center font-mono text-white">
-        <h2 className="text-6xl mt-3 ">{place}</h2>
+        <h2 className="text-6xl mt-3 ">{place.toUpperCase()}</h2>
         <h2 className="flex gap-1 text-5xl  items-end mt-4 text-center justify-center">
           <p>{format(parseISO(firstHit?.dt_txt ?? ""), "EEEE")}</p>
           <p className="text-3xl">
@@ -22,11 +25,11 @@ const CurrentTimeWeather = (): React.ReactElement => {
       </div>
       <section className="items-center mt-[6rem] md:w-[80%] justify-center w-[90%]    md:flex-row  gap-y-5 bg-white flex-col  text-orange-50 m-auto  flex p-5 md:justify-between bg-opacity-15 shadow-lg backdrop-blur-3xl border border-opacity-18 rounded-lg border-solid border-white font-mono">
         <span className="text-7xl text-center ">
-          {convertKelvinToCelsius(testData.main.temp ?? 296.37)}°
+          {convertKelvinToCelsius(firstHit.main.temp ?? 296.37)}°
         </span>
         <div className="flex justify-center items-center flex-col text-center leading-6">
-          <span className="text-[32px] md:text-4xl text-center uppercase">
-            {testData.weather[0].description}
+          <span className="text-3xl min-[895px]:text-4xl text-center uppercase">
+            {firstHit.weather[0].description}
           </span>
           <div className="justify-center flex ">
             <img
@@ -39,7 +42,7 @@ const CurrentTimeWeather = (): React.ReactElement => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-y-1 justify-center text-center text-2xl">
+        <div className="flex flex-col gap-y-1 justify-center text-center text-3xl min-[895px]:text-4xl">
           <span>
             Feels like: {convertKelvinToCelsius(firstHit.main.feels_like)}°
           </span>

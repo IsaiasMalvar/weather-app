@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { WeatherData, WeatherDetail } from "../types";
+import { WeatherData, WeatherSingleDetail } from "../types";
 
 interface WeaterContextProps {
   city: string;
@@ -8,13 +8,15 @@ interface WeaterContextProps {
   place: string;
   showSuggestions: boolean;
   isLoading: boolean;
+  firstHit: WeatherSingleDetail;
+  completeDayCycle: WeatherSingleDetail[];
   handleInputChange: (value: string) => void;
   handleSuggestionClick: (value: string) => void;
   handleSubmitSearch: (e: React.FormEvent<HTMLFormElement>) => void;
   handleCurrentLocation: () => void;
   clearError?: () => void;
   weatherData?: WeatherData | undefined;
-  weatherDetail?: WeatherDetail;
+  weatherDetail?: WeatherSingleDetail;
 }
 
 export const WeatherContext = createContext<WeaterContextProps>(
