@@ -10,6 +10,7 @@ interface WeaterContextProps {
   isLoading: boolean;
   firstHit: WeatherSingleDetail;
   completeDayCycle: WeatherSingleDetail[];
+  weekForecast: WeatherSingleDetail[];
   handleInputChange: (value: string) => void;
   handleSuggestionClick: (value: string) => void;
   handleSubmitSearch: (e: React.FormEvent<HTMLFormElement>) => void;
