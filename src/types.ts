@@ -1,4 +1,4 @@
-export interface WeatherDetail {
+export interface WeatherSingleDetail {
   dt: number;
   main: {
     temp: number;
@@ -40,7 +40,7 @@ export interface WeatherData {
   cod: string;
   message: number;
   cnt: number;
-  list: WeatherDetail[];
+  list: WeatherSingleDetail[];
   city: {
     id: number;
     name: string;

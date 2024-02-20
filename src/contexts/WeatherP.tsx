@@ -1,6 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { WeatherContext } from "./WeatherC";
-import { WeatherData, WeatherDetail } from "../types";
+import { WeatherData, WeatherSingleDetail } from "../types";
 import axios from "axios";
 
 export const WeatherProvider = ({ children }: any) => {
@@ -11,6 +11,12 @@ export const WeatherProvider = ({ children }: any) => {
   const [place, setPlace] = useState<string>("Tenerife");
 
   const [weatherData, setWeatherData] = useState<WeatherData>(undefined);
+  const [firstHit, setFirstHit] = useState<WeatherSingleDetail>(undefined);
+  const [completeDayCycle, setCompleteDayCycle] = useState<
+    WeatherSingleDetail[]
+  >([]);
+  const [weekForecast, setWeekForecast] = useState<WeatherSingleDetail[]>([]);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const apiUrl = import.meta.env.VITE_API_ID;
 
@@ -47,20 +53,19 @@ export const WeatherProvider = ({ children }: any) => {
       setError("Location not found");
       setIsLoading(false);
     } else {
-      setIsLoading(true);
       setError("");
       setTimeout(() => {
         setPlace(city);
+
         setShowSuggestions(false);
-        setIsLoading(false);
       }, 500);
     }
   };
 
   const handleCurrentLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (postiion) => {
-        const { latitude, longitude } = postiion.coords;
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
         try {
           setIsLoading(true);
           const response = await axios.get(
@@ -77,14 +82,38 @@ export const WeatherProvider = ({ children }: any) => {
     }
   };
 
-  /*   const obtainWeatherData = useCallback(async () => {
+  const obtainWeatherData = useCallback(async () => {
     try {
       setIsLoading(true);
       const { data } = await axios.get<WeatherData>(
         `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiUrl}&cnt=40`
       );
       setWeatherData(data);
-      setTimeout(() => setIsLoading(false), 5000);
+      const uniqueDates = [
+        ...new Set(
+          data?.list.map(
+            (entry) => new Date(entry.dt * 1000).toISOString().split("T")[0]
+          )
+        ),
+      ];
+
+      const firstDataForEachDate = uniqueDates.map((date) => {
+        return data?.list.find((entry) => {
+          const entryDate = new Date(entry.dt * 1000)
+            .toISOString()
+            .split("T")[0];
+          const entryTime = new Date(entry.dt * 1000).getHours();
+          return entryDate === date && entryTime >= 6;
+        });
+      });
+
+      setCompleteDayCycle(data.list.slice(0, 8));
+
+      setWeekForecast(firstDataForEachDate);
+
+      setFirstHit(data.list[0]);
+
+      setTimeout(() => setIsLoading(false), 1500);
     } catch (error) {
       console.error(error);
       throw error;
@@ -97,7 +126,7 @@ export const WeatherProvider = ({ children }: any) => {
 
   useEffect(() => {
     obtainWeatherData();
-  }, [obtainWeatherData]); */
+  }, [obtainWeatherData]);
 
   console.log(weatherData);
 
@@ -115,7 +144,10 @@ export const WeatherProvider = ({ children }: any) => {
         suggestions,
         showSuggestions,
         place,
-        // clearError,
+        firstHit,
+        completeDayCycle,
+        weekForecast,
+        clearError,
       }}
     >
       {children}
