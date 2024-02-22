@@ -128,8 +128,6 @@ export const WeatherProvider = ({ children }: any) => {
     obtainWeatherData();
   }, [obtainWeatherData]);
 
-  console.log(weatherData);
-
   return (
     <WeatherContext.Provider
       value={{

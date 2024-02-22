@@ -16,9 +16,6 @@ function App() {
     weekForecast,
     place,
   } = useContext(WeatherContext);
-  console.log(isLoading);
-  console.log(weatherData);
-  console.log(completeDayCycle, firstHit);
 
   return (
     <>
