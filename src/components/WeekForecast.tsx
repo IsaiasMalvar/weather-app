@@ -1,6 +1,6 @@
 import { format, parseISO } from "date-fns";
 import shiftIcon from "../utils/shiftIcon";
-import { convertKelvinToCelsius } from "../utils/convertKelvinToCelsius";
+import convertKelvinToCelsius from "../utils/convertKelvinToCelsius";
 import { WeatherSingleDetail } from "../types";
 
 interface WeekForecastProps {

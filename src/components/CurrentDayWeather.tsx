@@ -4,13 +4,12 @@ import { WiSunrise } from "react-icons/wi";
 import { WiBarometer } from "react-icons/wi";
 import { WiHumidity } from "react-icons/wi";
 import { MdOutlineVisibility } from "react-icons/md";
-import { completeDayCycle, firstHit, weatherData } from "../assets/testData";
-import { convertWindSpeed } from "../utils/convertWindSpeed";
-import { metersToKilometers } from "../utils/metersToKilometers";
+import convertWindSpeed from "../utils/convertWindSpeed";
+import metersToKilometers from "../utils/metersToKilometers";
 import WeatherDetail from "./WeatherDetail";
 import { format, fromUnixTime, parseISO } from "date-fns";
 import shiftIcon from "../utils/shiftIcon";
-import { convertKelvinToCelsius } from "../utils/convertKelvinToCelsius";
+import convertKelvinToCelsius from "../utils/convertKelvinToCelsius";
 import { WeatherData, WeatherSingleDetail } from "../types";
 
 interface CurrentDayWeatherProps {
