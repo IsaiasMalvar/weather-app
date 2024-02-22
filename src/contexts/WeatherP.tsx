@@ -2,6 +2,7 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import { WeatherContext } from "./WeatherC";
 import { WeatherData, WeatherSingleDetail } from "../types";
 import axios from "axios";
+import { format, parseISO } from "date-fns";
 
 export const WeatherProvider = ({ children }: any) => {
   const [city, setCity] = useState("");
