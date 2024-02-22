@@ -1,14 +1,14 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { WeatherContext } from "./WeatherC";
 import { WeatherData, WeatherSingleDetail } from "../types";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import countries from "../assets/countries.json";
 
 export const WeatherProvider = ({ children }: any) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const [place, setPlace] = useState<string>("Tenerife");
 
   const [weatherData, setWeatherData] = useState<WeatherData>(undefined);
@@ -25,21 +25,34 @@ export const WeatherProvider = ({ children }: any) => {
     setCity(value);
     if (value.length >= 3) {
       try {
-        const response = await axios.get(
+        const response = await axios.get<WeatherData>(
           `https://api.openweathermap.org/data/2.5/find?q=${value}&appid=${apiUrl}`
         );
 
-        const suggestions = response.data.list.map((item: any) => item.name);
-        setSuggestions(suggestions);
-        setError("");
-        setShowSuggestions(true);
+        if (response.data.list) {
+          const suggestions: string[] = response.data.list
+            .map((item) => {
+              const countryCode = countries.find(
+                (code) => code.code === item.sys.country
+              ).name;
+              console.log(countryCode);
+              return item.name + ", " + countryCode;
+            })
+            .filter((value, index, a) => a.indexOf(value) === index);
+          console.log(suggestions);
+
+          setShowSuggestions(true);
+          setSuggestions(suggestions);
+          setError("");
+          console.log(showSuggestions);
+        }
       } catch (error) {
         setSuggestions([]);
         setShowSuggestions(false);
       }
     } else {
       setSuggestions([]);
-      setShowSuggestions(false);
+      setShowSuggestions(true);
     }
   };
 
