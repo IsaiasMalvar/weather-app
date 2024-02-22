@@ -17,6 +17,8 @@ function App() {
     place,
   } = useContext(WeatherContext);
 
+  console.log(place);
+
   return (
     <>
       {!isLoading && weatherData && firstHit ? (
@@ -39,7 +41,10 @@ function App() {
         </div>
       ) : (
         <div className="bg-gradient-to-br from-[#4676d5]  to-[#19e1ec] min-h-screen flex items-center justify-center text-white">
-          <p>Error: Unable to fetch weather data</p>
+          <p>
+            Unfortunately, weather information for {place} is not available at
+            this moment.
+          </p>
         </div>
       )}
     </>

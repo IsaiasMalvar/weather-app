@@ -1,6 +1,6 @@
 import { format, parseISO } from "date-fns";
-import { WeatherData, WeatherSingleDetail } from "../types";
-import { convertKelvinToCelsius } from "../utils/convertKelvinToCelsius";
+import { WeatherSingleDetail } from "../types";
+import convertKelvinToCelsius from "../utils/convertKelvinToCelsius";
 import shiftIcon from "../utils/shiftIcon";
 
 interface CurrentTimeWeatherProps {
@@ -15,7 +15,9 @@ const CurrentTimeWeather = ({
   return (
     <>
       <div className="m-auto text-center font-mono text-white">
-        <h2 className="text-6xl mt-3 ">{place.toUpperCase()}</h2>
+        <h2 className="max-[330px]:text-5xl text-6xl mt-3 ">
+          {place.toUpperCase()}
+        </h2>
         <h2 className="flex gap-1 text-5xl  items-end mt-4 text-center justify-center">
           <p>{format(parseISO(firstHit?.dt_txt ?? ""), "EEEE")}</p>
           <p className="text-3xl">

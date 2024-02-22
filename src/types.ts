@@ -1,4 +1,5 @@
 export interface WeatherSingleDetail {
+  [x: string]: any;
   dt: number;
   main: {
     temp: number;
@@ -32,6 +33,7 @@ export interface WeatherSingleDetail {
   };
   sys: {
     pod: string;
+    country?: string;
   };
   dt_txt: string;
 }
