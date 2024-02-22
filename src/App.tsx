@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      {!isLoading && weatherData ? (
+      {!isLoading && weatherData && firstHit ? (
         <div
           className="min-h-screen bg-gradient-to-br from-[#4676d5]  to-[#19e1ec] p-10 relative"
           onClick={clearError}
@@ -33,13 +33,16 @@ function App() {
           />
           <WeekForecast weekForecast={weekForecast} />
         </div>
-      ) : (
+      ) : isLoading ? (
         <div className=" bg-gradient-to-br from-[#4676d5]  to-[#19e1ec]  relative">
           <Loader />
+        </div>
+      ) : (
+        <div className="bg-gradient-to-br from-[#4676d5]  to-[#19e1ec] min-h-screen flex items-center justify-center text-white">
+          <p>Error: Unable to fetch weather data</p>
         </div>
       )}
     </>
   );
 }
-
 export default App;
