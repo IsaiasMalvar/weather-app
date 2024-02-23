@@ -25,7 +25,7 @@ const CurrentDayWeather = ({
 }: CurrentDayWeatherProps): React.ReactElement => {
   return (
     <>
-      <section className=" w-[90%] max-[600px]:hidden m-auto mt-10 p-5 flex flex-col items-center justify-evenly gap-y-10 border border-opacity-18 bg-blue-500 bg-opacity-80 rounded-lg border-solid border-white text-orange-50 shadow-lg backdrop-blur-3xl  border-opacity-18 font-mono text-5xl">
+      <section className=" sm:w-[90%] max-[600px]:hidden m-auto mt-10 p-5 flex flex-col items-center justify-evenly gap-y-10 border border-opacity-18 bg-blue-500 bg-opacity-80 rounded-lg border-solid border-white text-orange-50 shadow-lg backdrop-blur-3xl  border-opacity-18 font-mono text-5xl">
         <h1 className="uppercase text-center mt-4 lg:text-8xl">
           Weather Conditions
         </h1>
@@ -96,11 +96,11 @@ const CurrentDayWeather = ({
           />
         </div>
       </section>
-      <section className="w-[90%] min-[600px]:hidden flex-col  m-auto mt-5 p-7 flex  gap-y-10 border border-opacity-18 bg-blue-500 bg-opacity-80 rounded-lg border-solid border-white text-orange-50 shadow-lg backdrop-blur-3xl  border-opacity-18 ">
+      <section className="w-[100%] min-[600px]:hidden flex-col  m-auto mt-5 p-7 flex  gap-y-10 border border-opacity-18 bg-blue-500 bg-opacity-80 rounded-lg border-solid border-white text-orange-50 shadow-lg backdrop-blur-3xl  border-opacity-18 ">
         <h1 className="uppercase text-center mt-4 text-4xl font-mono">
           Weather Conditons
         </h1>
-        <div className="flex p-5  gap-x-5 gap-y-5 text-center flex-col ">
+        <div className="flex  gap-x-5 gap-y-5 text-center overflow-x-auto bg-white bg-opacity-10 border-2 rounded-lg">
           <WeatherDetail
             information="Visibility"
             icon={<MdOutlineVisibility />}

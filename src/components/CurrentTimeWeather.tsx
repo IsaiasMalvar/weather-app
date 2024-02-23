@@ -25,7 +25,7 @@ const CurrentTimeWeather = ({
           </p>
         </h2>
       </div>
-      <section className="items-center mt-[6rem] md:w-[80%] justify-center w-[90%]    md:flex-row  gap-y-5 bg-white flex-col  text-orange-50 m-auto  flex p-5 md:justify-between bg-opacity-15 shadow-lg backdrop-blur-3xl border border-opacity-18 rounded-lg border-solid border-white font-mono">
+      <section className="items-center mt-[6rem] sm:w-[80%] justify-center     md:flex-row  gap-y-1 bg-white flex-col  text-orange-50 m-auto  flex p-5 md:justify-between bg-opacity-15 shadow-lg backdrop-blur-3xl border border-opacity-18 rounded-lg border-solid border-white font-mono">
         <span className="text-7xl text-center ">
           {convertKelvinToCelsius(firstHit.main.temp ?? 296.37)}°
         </span>

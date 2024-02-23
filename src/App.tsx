@@ -6,7 +6,7 @@ import CurrentDayWeather from "./components/CurrentDayWeather";
 import WeekForecast from "./components/WeekForecast";
 import Loader from "./components/Loader";
 
-function App() {
+const App = (): React.ReactElement => {
   const {
     clearError,
     isLoading,
@@ -17,7 +17,7 @@ function App() {
     place,
   } = useContext(WeatherContext);
 
-  console.log(place);
+  console.log(isLoading);
 
   return (
     <>
@@ -27,7 +27,10 @@ function App() {
           onClick={clearError}
         >
           <NavBar />
-          <CurrentTimeWeather firstHit={firstHit} place={place} />
+          <CurrentTimeWeather
+            firstHit={firstHit}
+            place={place === "Tenerife" ? place + ", " + "Spain" : place}
+          />
           <CurrentDayWeather
             completeDayCycle={completeDayCycle}
             weatherData={weatherData}
@@ -49,5 +52,5 @@ function App() {
       )}
     </>
   );
-}
+};
 export default App;

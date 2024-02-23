@@ -18,7 +18,7 @@ export const WeatherProvider = ({ children }: any) => {
   >([]);
   const [weekForecast, setWeekForecast] = useState<WeatherSingleDetail[]>([]);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const apiUrl = import.meta.env.VITE_API_ID;
 
   const handleInputChange = async (value: string) => {
@@ -35,16 +35,14 @@ export const WeatherProvider = ({ children }: any) => {
               const countryCode = countries.find(
                 (code) => code.code === item.sys.country
               ).name;
-              console.log(countryCode);
+
               return item.name + ", " + countryCode;
             })
             .filter((value, index, a) => a.indexOf(value) === index);
-          console.log(suggestions);
 
           setShowSuggestions(true);
           setSuggestions(suggestions);
           setError("");
-          console.log(showSuggestions);
         }
       } catch (error) {
         setSuggestions([]);
@@ -57,7 +55,8 @@ export const WeatherProvider = ({ children }: any) => {
   };
 
   const handleSuggestionClick = (value: string) => {
-    setCity(value);
+    setIsLoading(true);
+    setPlace(value);
     setShowSuggestions(false);
   };
 
@@ -65,30 +64,44 @@ export const WeatherProvider = ({ children }: any) => {
     e.preventDefault();
     if (suggestions.length == 0) {
       setError("Location not found");
+
+      setIsLoading(false);
+    } else if (!suggestions.includes(city)) {
+      setSuggestions([]);
+      setError("Location not found");
       setIsLoading(false);
     } else {
       setError("");
+      setIsLoading(true);
       setTimeout(() => {
         setPlace(city);
 
         setShowSuggestions(false);
+        setIsLoading(false);
       }, 500);
     }
   };
 
   const handleCurrentLocation = () => {
+    setIsLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         try {
-          setIsLoading(true);
           const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiUrl}`
           );
-          setTimeout(() => {
-            setIsLoading(false);
-            setPlace(response.data.name);
-          }, 500);
+
+          setPlace(
+            response.data.name +
+              ", " +
+              countries.find(
+                (country) => country.code === response.data.sys.country
+              ).name
+          );
+
+          setCity("");
+          setIsLoading(false);
         } catch (error) {
           setIsLoading(false);
         }
@@ -98,7 +111,6 @@ export const WeatherProvider = ({ children }: any) => {
 
   const obtainWeatherData = useCallback(async () => {
     try {
-      setIsLoading(true);
       const { data } = await axios.get<WeatherData>(
         `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiUrl}&cnt=40`
       );
@@ -110,6 +122,12 @@ export const WeatherProvider = ({ children }: any) => {
           )
         ),
       ];
+
+      console.log(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiUrl}&cnt=40`
+      );
+
+      console.log(data.city.country);
 
       const firstDataForEachDate = uniqueDates.map((date) => {
         return data?.list.find((entry) => {
