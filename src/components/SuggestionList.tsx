@@ -5,8 +5,6 @@ const SuggestionList = (): React.ReactElement => {
   const { showSuggestions, suggestions, handleSuggestionClick, error } =
     useContext(WeatherContext);
 
-  console.log(suggestions);
-  console.log(showSuggestions, suggestions.length);
   return (
     <>
       {((showSuggestions && suggestions.length >= 1) || error) && (

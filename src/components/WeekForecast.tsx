@@ -15,13 +15,13 @@ const WeekForecast = ({
       <p className="text-5xl md:text-8xl text-center font-mono text-white">
         Week Forecast
       </p>
-      <div className="flex text-2xl min-[895px]:text-5xl gap-y-16 font-mono justify-evenly flex-wrap max-[560px]:flex-col max-[560px]:justify-center items-center max-[560px]:text-5xl">
+      <div className="flex max-[560px]:flex-row overflow-x-auto gap-x-10  text-2xl min-[895px]:text-5xl gap-y-16 font-mono max-[560px]:justify-between justify-evenly max-[560px]:flex-nowrap flex-wrap items-center max-[560px]:text-xl">
         {weekForecast
           .filter((d) => d)
           .map((d, i) => (
             <div
               key={i}
-              className="flex flex-col  w-[30%] text-white justify-center items-center"
+              className="flex flex-col  w-[30%] text-white justify-center items-center "
             >
               <div className="">
                 <img
@@ -35,12 +35,16 @@ const WeekForecast = ({
               </div>
               <p></p>
 
-              <p>{format(parseISO(d?.dt_txt ?? ""), "dd.MM")}</p>
-              <p>{format(parseISO(d?.dt_txt ?? ""), "EEEE")}</p>
+              <p className="text-center ">
+                {format(parseISO(d?.dt_txt ?? ""), "dd")}{" "}
+                {format(parseISO(d?.dt_txt ?? ""), "EEEE").slice(0, 3)}
+              </p>
+              <p></p>
               <p>{convertKelvinToCelsius(d?.main.temp ?? 0)}°</p>
-              <div className="flex flex-col ">
-                <span> Feels like:</span>
-                <span className="text-center">
+              <div className="flex flex-col  ">
+                <span className="text-center ">
+                  {" "}
+                  Feels like:{" "}
                   {convertKelvinToCelsius(d?.main.feels_like ?? 0 ?? 0)}°
                 </span>
               </div>
