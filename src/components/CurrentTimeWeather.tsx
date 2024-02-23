@@ -18,8 +18,10 @@ const CurrentTimeWeather = ({
         <h2 className="max-[330px]:text-5xl text-6xl mt-3 ">
           {place.toUpperCase()}
         </h2>
-        <h2 className="flex gap-1 text-5xl  items-end mt-4 text-center justify-center">
-          <p>{format(parseISO(firstHit?.dt_txt ?? ""), "EEEE")}</p>
+        <h2 className="flex gap-1 text-5xl   mt-4  justify-center flex-col">
+          <p>
+            {format(parseISO(firstHit?.dt_txt ?? ""), "EEEE").toUpperCase()}
+          </p>
           <p className="text-3xl">
             ({format(parseISO(firstHit?.dt_txt ?? ""), "dd.MM.yyyy")})
           </p>

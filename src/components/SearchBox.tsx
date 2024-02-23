@@ -18,7 +18,7 @@ const SearchBox = (): React.ReactElement => {
           type="text"
           placeholder="Where to?"
           onChange={(e) => handleInputChange(e.target.value)}
-          className="placeholder-white p-3 max-[500px]:w-[200px] w-[200px] md:w-[500px]  max-[500px]:text-lg 
+          className="placeholder-white p-3 max-[500px]:w-[150px]  md:w-[500px]  max-[500px]:text-lg 
          bg-blue-400 border border-blue-400 rounded-l-md focus:outline-none  text-2xl border-r-0 font-mono  text-white"
         />
         <button className="p-3  text-white  bg-blue-400  focus:outline-none hover:bg-blue-500 h-full focus:border-blue-600  ">

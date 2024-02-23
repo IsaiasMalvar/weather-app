@@ -17,13 +17,11 @@ const App = (): React.ReactElement => {
     place,
   } = useContext(WeatherContext);
 
-  console.log(isLoading);
-
   return (
     <>
       {!isLoading && weatherData && firstHit ? (
         <div
-          className="min-h-screen bg-gradient-to-br from-[#4676d5]  to-[#19e1ec] p-10 relative"
+          className="min-h-screen bg-gradient-to-br from-[#4676d5]  to-[#19e1ec] p-12 relative"
           onClick={clearError}
         >
           <NavBar />

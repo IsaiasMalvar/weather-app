@@ -123,12 +123,6 @@ export const WeatherProvider = ({ children }: any) => {
         ),
       ];
 
-      console.log(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiUrl}&cnt=40`
-      );
-
-      console.log(data.city.country);
-
       const firstDataForEachDate = uniqueDates.map((date) => {
         return data?.list.find((entry) => {
           const entryDate = new Date(entry.dt * 1000)
