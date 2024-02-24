@@ -19,31 +19,35 @@ export const WeatherProvider = ({ children }: any) => {
   const [weekForecast, setWeekForecast] = useState<WeatherSingleDetail[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const apiUrl = import.meta.env.VITE_API_ID;
+  console.log(isLoading);
 
   const handleInputChange = async (value: string) => {
     setCity(value);
+
     if (value.length >= 3) {
       try {
         const response = await axios.get<WeatherData>(
-          `https://api.openweathermap.org/data/2.5/find?q=${value}&appid=${apiUrl}`
+          `https://api.openweathermap.org/data/2.5/find?q=${
+            value.split(" ")[0].split(",")[0]
+          }&appid=${apiUrl}`
         );
 
-        if (response.data.list) {
-          const suggestions: string[] = response.data.list
-            .map((item) => {
-              const countryCode = countries.find(
-                (code) => code.code === item.sys.country
-              ).name;
+        const suggestions: string[] = response.data.list
+          .map((item) => {
+            const countryCode = countries.find(
+              (code) => code.code === item.sys.country
+            ).name;
 
-              return item.name + ", " + countryCode;
-            })
-            .filter((value, index, a) => a.indexOf(value) === index);
+            return item.name + ", " + countryCode;
+          })
+          .filter((value, index, a) => a.indexOf(value) === index);
 
-          setShowSuggestions(true);
-          setSuggestions(suggestions);
-          setError("");
-        }
+        console.log(suggestions);
+        setShowSuggestions(true);
+        setSuggestions(suggestions);
+        setError("");
       } catch (error) {
         setSuggestions([]);
         setShowSuggestions(false);
@@ -62,23 +66,19 @@ export const WeatherProvider = ({ children }: any) => {
 
   const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (suggestions.length == 0) {
+    if (suggestions.length === 0) {
       setError("Location not found");
-
-      setIsLoading(false);
     } else if (suggestions.length >= 1) {
-      setIsLoading(true);
-      setPlace(suggestions[0]);
-      setSuggestions([]);
-    } else {
       setError("");
       setIsLoading(true);
       setTimeout(() => {
-        setPlace(city);
+        console.log(city.split(" ")[0]);
+        setPlace(suggestions.includes(city) ? city : suggestions[0]);
 
         setShowSuggestions(false);
         setIsLoading(false);
       }, 500);
+      console.log(place);
     }
   };
 
@@ -103,6 +103,7 @@ export const WeatherProvider = ({ children }: any) => {
           setCity("");
           setIsLoading(false);
         } catch (error) {
+          console.log(error);
           setIsLoading(false);
         }
       });
@@ -142,6 +143,7 @@ export const WeatherProvider = ({ children }: any) => {
       setTimeout(() => setIsLoading(false), 1500);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
       throw error;
     }
   }, [place]);
