@@ -18,7 +18,7 @@ const SuggestionList = (): React.ReactElement => {
               onClick={() => handleSuggestionClick(item)}
               className="cursor-pointer p-1 rounded   hover:bg-gray-200 text-blue-500"
             >
-              {item}
+              {item && item}
             </li>
           ))}
         </ul>
