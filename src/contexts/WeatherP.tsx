@@ -66,10 +66,10 @@ export const WeatherProvider = ({ children }: any) => {
       setError("Location not found");
 
       setIsLoading(false);
-    } else if (!suggestions.includes(city)) {
+    } else if (suggestions.length >= 1) {
+      setIsLoading(true);
+      setPlace(suggestions[0]);
       setSuggestions([]);
-      setError("Location not found");
-      setIsLoading(false);
     } else {
       setError("");
       setIsLoading(true);
