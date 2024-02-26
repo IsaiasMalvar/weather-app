@@ -24,7 +24,8 @@ export const WeatherProvider = ({ children }: any) => {
 
   const handleInputChange = async (value: string) => {
     setCity(value);
-    const str = value;
+
+    const str = value.replace(/,/g, "");
 
     const spaceCount = (str.match(/ /g) || []).length;
 
@@ -32,7 +33,7 @@ export const WeatherProvider = ({ children }: any) => {
       try {
         const response = await axios.get<WeatherData>(
           `https://api.openweathermap.org/data/2.5/find?q=${
-            spaceCount < 2 ? value.split(" ")[0] : value
+            spaceCount < 2 ? str.split(" ")[0] : str
           }&appid=${apiUrl}`
         );
 
