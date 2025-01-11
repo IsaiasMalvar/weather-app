@@ -27,7 +27,7 @@
 ## Live Site  
 
 Check out the live version of **BreezeFlow** and get real-time weather updates:  
-**[Visit BreezeFlow]([#](https://breeezeflow.netlify.app/))**  
+**[Visit BreezeFlow](https://breeezeflow.netlify.app/)**  
 
 ---
 
